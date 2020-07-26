@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+</h:head>
+<h:body>
+    <p:importEnum type="br.com.devdojo.maratonajsf.model.enums.Turno"
+                  var="Turno"
+                  allSuffix="ALL_ENUM_VALUES"/>
+
+    <f:view>
+        <h:outputLabel value="Hello, world"/><br/>
+        <h:outputLabel value="#{estudanteRegistrarBean.estudante.nome}"/><br/>
+        <h:outputText value="ENUM"/>
+        <h:outputLabel value="#{estudanteRegistrarBean.estudante.turno eq Turno.MATUTINO}"/>
+        <!--   ARRAYS   -->
+        <br/>
+        <h:outputLabel value="#{estudanteRegistrarBean.nomesArray[0]}"/>
+        <br/><br/>
+        <!--   ui:repeat   -->
+        <ui:repeat value="#{estudanteRegistrarBean.nomesArray}" var="estudante">
+            <h:outputLabel value="#{estudante}"/>
+        </ui:repeat>
+
+        <h:form>
+            <h:commandButton value="Excluir alguma coisa"
+                             actionListener="#{estudanteRegistrarBean.irParaIndex2()}"/>
+        </h:form>
+
+        <br/><br/><br/><br/>
+
+        <!--   rendered & ajax   -->
+        <h:form id="form">
+            <h:commandButton value="Exibir notas">
+                <f:ajax render="notasGrid" listener="#{estudanteRegistrarBean.exibirNotas()}"/>
+            </h:commandButton>
+            <br/>
+            <h:panelGrid id="notasGrid">
+                <h:outputText value="#{estudanteRegistrarBean.estudante.nome}"/>
+                <h:outputText value="#{estudanteRegistrarBean.estudante.sobrenome}"/>
+                <h:outputText value="#{estudanteRegistrarBean.estudante.nota1}"
+                              rendered="#{estudanteRegistrarBean.mostrarNotas}"/>
+                <h:outputText value="#{estudanteRegistrarBean.estudante.nota2}"
+                              rendered="#{estudanteRegistrarBean.mostrarNotas}"/>
+                <h:outputText value="#{estudanteRegistrarBean.estudante.nota3}"
+                              rendered="#{estudanteRegistrarBean.mostrarNotas}"/>
+            </h:panelGrid>
+        </h:form>
+    </f:view>
+</h:body>
+</html>
