@@ -1,7 +1,8 @@
-package br.com.devdojo.maratonajsf.bean.request;
+package br.com.devdojo.maratonajsf.bean.view;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
+import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -11,16 +12,16 @@ import java.util.concurrent.ThreadLocalRandom;
 import static java.util.Arrays.asList;
 
 @Named
-@RequestScoped
-public class TesteRequestBean implements Serializable {
+@ViewScoped
+public class TesteViewBean implements Serializable {
 
     private List<String> personagens;
     private List<String> personagemSelecionado = new ArrayList<>();
 
     @PostConstruct
     public void init() {
-        System.out.println("Entrou no PostConstruct do request scoped");
-        this.personagens = asList("Yasuke", "Sona", "Seila");
+        System.out.println("Entrou no PostConstruct do ViewScoped");
+        this.personagens = asList("Phoenix", "Cypher", "Omen");
     }
 
     public void selecionarPersonagem() {
@@ -44,4 +45,5 @@ public class TesteRequestBean implements Serializable {
     public void setPersonagemSelecionado(List<String> personagemSelecionado) {
         this.personagemSelecionado = personagemSelecionado;
     }
+
 }

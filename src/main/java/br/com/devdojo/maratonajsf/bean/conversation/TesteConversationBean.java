@@ -1,8 +1,10 @@
-package br.com.devdojo.maratonajsf.bean.session;
+package br.com.devdojo.maratonajsf.bean.conversation;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.SessionScoped;
+import javax.enterprise.context.Conversation;
+import javax.enterprise.context.ConversationScoped;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -12,21 +14,29 @@ import java.util.concurrent.ThreadLocalRandom;
 import static java.util.Arrays.asList;
 
 @Named
-@SessionScoped
-public class TesteSessionBean implements Serializable {
+@ConversationScoped
+public class TesteConversationBean implements Serializable {
 
     private List<String> personagens;
     private List<String> personagemSelecionado = new ArrayList<>();
+    @Inject
+    private Conversation conversation;
 
-    @PostConstruct
+    // tirei o post construct - explicação aula 016
     public void init() {
-        System.out.println("Entrou no post construct do SessionScoped");
-        this.personagens = asList("Naruto", "Hinata", "Sasuke");
+        System.out.println("Entrou no PostConstruct do ConversationScoped");
+        this.personagens = asList("Luffy", "Zoro", "Sanji");
+        if(conversation.isTransient()) {
+            conversation.begin();
+            System.out.println("Iniciando conversation scoped, id = "+ conversation.getId());
+        }
     }
 
-    public String logout() {
-        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-        return "session?faces-redirect=true";
+    public String endConversation() {
+        if(!conversation.isTransient()) {
+            conversation.end();
+        }
+        return "conversation?faces-redirect=true";
     }
 
     public void selecionarPersonagem() {
@@ -51,4 +61,11 @@ public class TesteSessionBean implements Serializable {
         this.personagemSelecionado = personagemSelecionado;
     }
 
+    public Conversation getConversation() {
+        return conversation;
+    }
+
+    public void setConversation(Conversation conversation) {
+        this.conversation = conversation;
+    }
 }

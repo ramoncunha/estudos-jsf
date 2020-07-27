@@ -11,11 +11,10 @@
 
 <h:body>
     <f:view>
-        <h:outputLabel value="Pegando valor do Session Bean"/><br/>
-        <h:outputText value="#{testeSessionBean.personagemSelecionado}"/>
-        <br/>
-        <h:outputText value="#{testeApplicationBean.categorias}"/>
+        <h:outputText value="#{testeApplicationBean.categorias}"/><br/>
+        <h:outputLabel value="Pegando valor do Conversation Bean"/><br/>
 
+        <h:outputText value="#{testeConversationBean.personagemSelecionado}"/>
     </f:view>
 </h:body>
 </html>
