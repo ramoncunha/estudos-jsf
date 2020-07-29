@@ -6,12 +6,17 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:head>
+
 </h:head>
 <h:body>
-    <h2>Ponto de Entrada do FlowScoped</h2>
+    <h:messages />
     <h:form>
-        <h:commandButton value="Entrar no Flow" action="registration"/>
-        <h:commandButton value="Entrar no New Flow" action="newregistration"/>
+        <h2>Primeira página de registro New Registration</h2>
+        <h:outputLabel value="Nome"/>
+        <h:inputText value="#{testeFlowBuilderBean.nome}" required="true" requiredMessage="Nome é obrigatório."/>
+        <h:outputLabel value="Sobrenome"/>
+        <h:inputText value="#{testeFlowBuilderBean.sobrenome}"/>
+        <h:commandButton value="Next" action="newRegistrationPage2"/>
     </h:form>
 </h:body>
 </html>

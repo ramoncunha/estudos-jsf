@@ -4,11 +4,41 @@
     xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee 
     http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
     <flow-definition id="registration">
+        <!-- Definindo página de entrada diferente da convenção -->
+        <start-node>registrationInicio</start-node>
+        <view id="registrationInicio">
+            <vdl-document>/registration/registration.xhtml</vdl-document>
+        </view>
+        <flow-call id="callPendencies">
+            <flow-reference>
+                <flow-id>pendencies</flow-id>
+            </flow-reference>
+            <!-- Enviando dois parâmetros para pendencies-flow -->
+            <outbound-parameter>
+                <name>userName</name>
+                <value>#{testeFlowBean.nome}</value>
+            </outbound-parameter>
+            <outbound-parameter>
+                <name>userSurname</name>
+                <value>#{testeFlowBean.sobrenome}</value>
+            </outbound-parameter>
+        </flow-call>
+        <!-- Switch para validar dados do usuário -->
+        <switch id="registrationPage2">
+            <case>
+                <if>#{not empty testeFlowBean.nome and not empty testeFlowBean.sobrenome}</if>
+                <from-outcome>registration2</from-outcome>
+            </case>
+            <default-outcome>registrationInicio</default-outcome>
+        </switch>
+        <!-- Páginas de retorno -->
         <flow-return id="exitToInicio">
             <from-outcome>/inicioflow.xhtml</from-outcome>
         </flow-return>
         <flow-return id="exitToIndex">
             <from-outcome>/index.xhtml</from-outcome>
         </flow-return>
+        <!-- Metódo que será executado indenpendente do flow-return -->
+        <finalizer>#{testeFlowBean.salvar()}</finalizer>
     </flow-definition>
 </faces-config>
