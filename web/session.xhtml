@@ -11,7 +11,9 @@
 <h:body>
     <h:form>
         <h:outputText value="#{testeApplicationBean.categorias}"/><br/>
+        <h:outputText value="#{testeApplicationBean.testeSessionBean.personagemSelecionado}"/><br/>
         <h:outputText value="#{testeSessionBean.personagemSelecionado}"/><br/>
+
         <h:commandButton actionListener="#{testeSessionBean.selecionarPersonagem()}"
                          value="Selecionar personagem"/>
 

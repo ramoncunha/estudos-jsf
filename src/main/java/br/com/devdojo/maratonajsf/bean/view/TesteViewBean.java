@@ -1,9 +1,9 @@
 package br.com.devdojo.maratonajsf.bean.view;
 
 import br.com.devdojo.maratonajsf.bean.dependent.TesteDependentBean;
+import br.com.devdojo.maratonajsf.bean.session.TesteSessionBean;
 
 import javax.annotation.PostConstruct;
-import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -21,10 +21,12 @@ public class TesteViewBean implements Serializable {
     private List<String> personagens;
     private List<String> personagemSelecionado = new ArrayList<>();
     private final TesteDependentBean testeDependentBean;
+    private final TesteSessionBean testeSessionBean;
 
     @Inject
-    public TesteViewBean(TesteDependentBean testeDependentBean) {
+    public TesteViewBean(TesteDependentBean testeDependentBean, TesteSessionBean testeSessionBean) {
         this.testeDependentBean = testeDependentBean;
+        this.testeSessionBean = testeSessionBean;
     }
 
     @PostConstruct
@@ -34,10 +36,17 @@ public class TesteViewBean implements Serializable {
     }
 
     public void selecionarPersonagem() {
-        int index = ThreadLocalRandom.current().nextInt(3);
-        String personagem = personagens.get(index);
-        personagemSelecionado.add(personagem);
-        testeDependentBean.getPersonagemSelecionado().add(personagem);
+
+        if(testeSessionBean.getEstudante().getNome().equals("Ramon")) {
+            int index = ThreadLocalRandom.current().nextInt(3);
+            String personagem = personagens.get(index);
+            personagemSelecionado.add(personagem);
+            testeDependentBean.getPersonagemSelecionado().add(personagem);
+        }
+    }
+
+    public TesteSessionBean getTesteSessionBean() {
+        return testeSessionBean;
     }
 
     public List<String> getPersonagens() {
