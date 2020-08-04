@@ -1,6 +1,7 @@
 package br.com.devdojo.maratonajsf.bean.comunicacao;
 
 import javax.annotation.PostConstruct;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -13,6 +14,7 @@ public class TesteComunicacao3Bean implements Serializable {
     private String sobrenome;
 
     public void init() {
+        //if(!FacesContext.getCurrentInstance().isPostback())
         System.out.println("Criou comunicação 3");
         System.out.println(nome);
         System.out.println(sobrenome);

@@ -4,6 +4,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:o="http://omnifaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:head>
     <f:metadata>
@@ -13,12 +15,15 @@
     </f:metadata>
 </h:head>
 <h:body>
-    <h:form>
+    <o:form includeRequestParams="true">
+        <p:messages autoUpdate="true"/>
         <h:panelGrid columns="1">
-            <h:inputText value="#{testeComunicacao3Bean.nome}"/>
+            <h:inputText value="#{testeComunicacao3Bean.nome}" required="true" requiredMessage="Nome é obrigatório">
+                <f:ajax event="blur"/>
+            </h:inputText>
             <h:inputText value="#{testeComunicacao3Bean.sobrenome}"/>
-            <h:commandButton value="Resultado" action="resultado?faces-redirect=true&amp;includeViewParams=true"/>
+            <h:commandButton value="Resultado" action="#{testeComunicacao3Bean.save()}"/>
         </h:panelGrid>
-    </h:form>
+    </o:form>
 </h:body>
 </html>
