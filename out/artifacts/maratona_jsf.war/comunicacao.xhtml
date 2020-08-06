@@ -4,6 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:of="http://omnifaces.org/functions"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:head>
 
@@ -26,6 +27,7 @@
             <h:link value="Vai para comunicacação 3" outcome="comunicacao3">
                 <f:param name="nome" value="DevDojo"/>
                 <f:param name="sobrenome" value="Ninjas"/>
+                <f:param name="data" value="#{of:formatDate(testeComunicacaoBean.data, 'dd/MM/yyyy')}"/>
             </h:link>
         </h:panelGrid>
     </h:form>
